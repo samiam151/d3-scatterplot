@@ -1,0 +1,13 @@
+.container {
+  text-align: center;
+  font-family: sans-serif; }
+
+.chart {
+  background-color: #ccc;
+  padding: 30px;
+  width: 50%;
+  margin: 0 auto;
+  border-bottom: 3px solid black;
+  border-left: 3px solid black; }
+
+/*# sourceMappingURL=style.css.map */

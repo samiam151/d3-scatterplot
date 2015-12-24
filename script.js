@@ -13,7 +13,8 @@ var dataset = {
       [ 475, 44 ],
       [ 25, 67 ],
       [ 85, 21 ],
-      [ 220, 88 ]
+      [ 220, 88 ],
+      [1203, 150]
    ],
    max_X: function(){
       var highest = dataset.datum[0][0];
@@ -39,10 +40,27 @@ var dataset = {
 // Svg dimensions and padding info
 // ======================================
 var scatterPlot = {
-   width: 600,
-   height: 200,
-   padding: 30
+   width: 700,
+   height: 300,
+   padding: 70
 };
+
+// ======================================
+// Set up the scales
+// ======================================
+var xMax = d3.max(dataset.datum, function(d){ return d[0]; }),
+   xMin = d3.min(dataset.datum, function(d){ return d[0]; }),
+   yMax = d3.max(dataset.datum, function(d){ return d[1]; }),
+   yMin = d3.min(dataset.datum, function(d){ return d[1]; }),
+   dataPadding = 20;
+   
+var xScale = d3.scale.linear()
+      .domain([xMin, xMax])
+      .range([0 + scatterPlot.padding, scatterPlot.width - scatterPlot.padding]),
+   yScale = d3.scale.linear()
+      .domain([yMin, yMax])
+      .range([scatterPlot.height - scatterPlot.padding, 0 + scatterPlot.padding])
+   ;  
 
 // ======================================
 // Set up the SVG palette
@@ -52,6 +70,7 @@ var svg = d3.select('.chart')
    .attr('width', scatterPlot.width)
    .attr('height', scatterPlot.height)
    ;
+
 
 // ======================================
 // Bind the data to our dots,
@@ -65,11 +84,12 @@ var circles = svg.selectAll('circle')
 // ======================================
 // format the dots,
 // ======================================
-circles.attr('cx', function(d){return d[0] + scatterPlot.padding;})
-   .attr('cy', function(d){return d[1] + scatterPlot.padding;})
+circles.attr('cx', function(d){ return xScale(d[0]); })
+   .attr('cy', function(d){return yScale(d[1]); })
    .attr('r', function(d){
-      var max = dataset.max_Y();
-      return  (max / d[1]) * 3;
+      // var max = dataset.max_Y();
+      // return  (max / d[1]) * 3;
+      return 5;
    })
    ;
 
@@ -83,8 +103,8 @@ svg.selectAll('text')
       .text(function(d){
          return '(' + d[0] + ', ' + d[1] + ')';
       })
-      .attr('x', function(d){return d[0] + scatterPlot.padding;})
-      .attr('y', function(d){return d[1] + scatterPlot.padding;})
+      .attr('x', function(d){ return xScale(d[0]); })
+      .attr('y', function(d){return yScale(d[1]);})
       .attr('font-family', 'sans-serif')
       .attr('fill', 'white')
       .attr('font-size', '11px')

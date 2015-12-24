@@ -1,3 +1,7 @@
+// ======================================
+// This is our data, plus some utility functions regarding that data
+// ======================================
+
 var dataset = {
    datum: [
       [ 5, 20 ],
@@ -31,24 +35,36 @@ var dataset = {
    }
 };
 
+// ======================================
+// Svg dimensions and padding info
+// ======================================
 var scatterPlot = {
    width: 600,
    height: 200,
    padding: 30
 };
 
+// ======================================
+// Set up the SVG palette
+// ======================================
 var svg = d3.select('.chart')
    .append('svg')
    .attr('width', scatterPlot.width)
    .attr('height', scatterPlot.height)
    ;
 
+// ======================================
+// Bind the data to our dots,
+// ======================================
 var circles = svg.selectAll('circle')
    .data(dataset.datum)
    .enter()
    .append('circle')
    ;
 
+// ======================================
+// format the dots,
+// ======================================
 circles.attr('cx', function(d){return d[0] + scatterPlot.padding;})
    .attr('cy', function(d){return d[1] + scatterPlot.padding;})
    .attr('r', function(d){
@@ -57,6 +73,9 @@ circles.attr('cx', function(d){return d[0] + scatterPlot.padding;})
    })
    ;
 
+// ======================================
+// then add the text.
+// ======================================
 svg.selectAll('text')
    .data(dataset.datum)
    .enter()

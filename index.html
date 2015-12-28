@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
-<script src="../d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
   <meta charset="utf-8">
   <title>ScatterPlot</title>
   <link rel="stylesheet" href="style.css">
@@ -11,9 +10,14 @@
  
  <div class="container">
    <h1>D3.js Scatter Plot</h1>
-   <div class="chart"></div>
+   <div class="chart-box"></div>
  </div>
 
   <script src='script.js'></script>
+  <script> 
+    // create an instance of the chart and associate it with the div 'chart-box'
+    var plot = ScatterPlot(d3.select('.chart-box'));
+    plot(); // run the chart() function
+  </script>
 </body>
 </html>
